@@ -1,0 +1,30 @@
+{
+  "network": "mainnet",
+  "rpcUrl": null,
+  "apiKey": null,
+  "privateKey": null,
+  "privateKeyFile": "./test01.key",
+  "tokenAName": "USDT",
+  "tokenBName": "USDC",
+  "tokenAAddress": "0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b",
+  "tokenBAddress": "0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b",
+  "poolId": "0x82e0b52f95ae57b35220726a32c3415919389aa5b8baa33a058d7125797535cc",
+  "poolType": "STABLE",
+  "initialAmount": 1000000000,
+  "maxLossPercentage": 0.5,
+  "delayMinMs": 10000,
+  "delayMaxMs": 30000,
+  "slippageTolerance": 0.1,
+  "debugMode": {
+    "enabled": false,
+    "singleRoundTrip": true,
+    "testAmount": 10000000,
+    "delayBetweenSwaps": 3000,
+    "logDetailedInfo": true
+  },
+  "telegram": {
+    "enabled": false,
+    "botToken": "",
+    "chatId": ""
+  }
+}

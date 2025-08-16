@@ -1,0 +1,125 @@
+# TAPP DEX 自动交换程序 - 精简版
+
+## 项目结构
+
+精简为三个核心文件：
+
+- **main.js** - 程序入口，主循环逻辑
+- **modules.js** - 核心功能模块（SDK集成、交换逻辑、工具函数）
+- **config.json** - 配置文件
+
+## 安装依赖
+
+```bash
+npm install @aptos-labs/ts-sdk @tapp-exchange/sdk
+```
+
+## 配置说明
+
+编辑 `config.json` 文件：
+
+```json
+{
+  "network": "mainnet",                    // 网络：mainnet 或 testnet
+  "rpcUrl": null,                         // 自定义RPC URL（可选）
+  "apiKey": null,                         // Aptos API密钥（可选，用于提高限制）
+  "privateKey": "YOUR_PRIVATE_KEY_HERE",  // 你的私钥
+  "tokenAName": "USDT",                   // 代币A名称
+  "tokenBName": "USDC",                   // 代币B名称
+  "tokenAAddress": "0xf22b...",           // 代币A地址
+  "tokenBAddress": "0xf22b...",           // 代币B地址
+  "poolId": null,                         // 指定池子ID（可选）
+  "poolType": "AMM",                      // 池子类型：AMM、CLMM、STABLE
+  "initialAmount": 100000000,             // 初始交换数量（最小单位，100USDT）
+  "maxLossPercentage": 5,                 // 最大损耗百分比
+  "delayMinMs": 5000,                     // 最小延迟毫秒
+  "delayMaxMs": 15000,                    // 最大延迟毫秒
+  "slippageTolerance": 1,                 // 滑点容忍度百分比
+  "telegram": {                           // Telegram通知（可选）
+    "enabled": false,
+    "botToken": "YOUR_BOT_TOKEN",
+    "chatId": "YOUR_CHAT_ID"
+  }
+}
+```
+
+## 使用方法
+
+### 生产模式
+
+1. **配置私钥**：在 `config.json` 中设置你的私钥
+2. **设置代币对**：配置要交换的代币地址
+3. **调整参数**：根据需要修改交换数量、损耗阈值等
+4. **启动程序**：
+
+```bash
+node main.js
+# 或
+npm start  # 带检查的启动
+```
+
+### 调试模式 🔧
+
+执行单次往返交易（A->B->A）用于测试：
+
+```bash
+npm run debug
+# 或
+node debug.js
+```
+
+调试模式特点：
+- 只执行一次往返交易：USDT -> USDC -> USDT
+- 使用较小测试数量（默认10 USDT）
+- 显示详细交易信息和损耗计算
+- 自动备份和恢复配置文件
+
+## 功能特点
+
+- ✅ **自动交换**：在指定代币对之间往返交换
+- ✅ **损耗控制**：达到阈值自动停止
+- ✅ **余额管理**：自动检测并使用80%可用余额
+- ✅ **错误处理**：网络错误重试机制
+- ✅ **统计报告**：实时显示交换统计信息
+- ✅ **安全退出**：Ctrl+C优雅停止
+- ✅ **Telegram通知**：可选的远程监控
+
+## 安全提醒
+
+- ⚠️ 确保钱包有足够APT作为Gas费
+- ⚠️ 建议在测试网先测试
+- ⚠️ 合理设置损耗阈值
+- ⚠️ 定期检查程序状态
+
+## 常见代币地址
+
+### USDT
+```
+0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT
+```
+
+### USDC
+```
+0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC
+```
+
+### APT
+```
+0x1::aptos_coin::AptosCoin
+```
+
+## 故障排除
+
+1. **私钥错误**：检查私钥格式是否正确
+2. **余额不足**：确保有足够的代币和APT
+3. **网络错误**：检查网络连接或更换RPC
+4. **池子不存在**：验证代币地址和池子类型
+
+## 日志说明
+
+程序运行时会显示：
+- 初始化信息
+- 交换进度
+- 成功/失败统计
+- 当前损耗百分比
+- 错误信息（如有）

@@ -1,0 +1,32 @@
+{
+  "name": "tapp-auto-swap-simplified",
+  "version": "1.0.0",
+  "description": "TAPP DEX 自动交换程序 - 精简版",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node start.js",
+    "dev": "node main.js",
+    "debug": "node debug.js",
+    "check": "node start.js --check-only"
+  },
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^3.0.0",
+    "@tapp-exchange/sdk": "latest",
+    "chalk": "^5.3.0"
+  },
+  "keywords": [
+    "tapp",
+    "dex", 
+    "swap",
+    "aptos",
+    "defi",
+    "auto",
+    "bot"
+  ],
+  "author": "TAPP DEX Auto Swap Bot",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
